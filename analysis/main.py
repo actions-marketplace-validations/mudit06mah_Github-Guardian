@@ -3,10 +3,7 @@ import os, yaml, json
 import fnmatch
 from pathlib import Path
 from detector import(
-    detectUnpinnedActions,
-    detectCurlBash,
-    detectBase64Obfuscation,
-    detectInlineScripts
+    detectAll,
 )
 from scoring import(
     scoreFindings,
@@ -57,19 +54,18 @@ def loadChangedWorkflows():
 
 def analyzeFile(path: Path):
     txt = path.read_text()
-    findings = []
-    findings += detectUnpinnedActions(txt)
-    findings += detectCurlBash(txt)
-    findings += detectBase64Obfuscation(txt)
 
     try:
         parsed = yaml.safe_load(txt) or {}
-        findings += detectInlineScripts(parsed)
     except Exception:
         findings.append({
             "type":"parse_error",
             "message":"Failed to parse YAML",
             "match":""})
+    
+    findings = []
+    findings.extend(detectAll(txt, parsed, str(path)))
+
     return findings 
 
 def main():
