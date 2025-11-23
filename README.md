@@ -12,7 +12,7 @@ Guardian performs deep static analysis of GitHub Actions workflows to identify s
 - **Check Runs**: Integration with GitHub's native check system
 - **Configurable**: Customize thresholds and rules for your needs
 - **Fast**: Analyzes workflows in seconds
-- **Supply Chain Security**: Detects unpinned actions and risky dependencies
+- **Supply Chain Security**: Detects unpinned actions & risky dependencies
 
 ## What Guardian Detects
 
